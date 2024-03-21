@@ -10,11 +10,9 @@
         <result property="correctRate" column="correct_rate" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <!--查询单个-->
+
     <select id="queryAllRateInfo" resultMap="RateMap">
-        select
-          *
-        from rate
+        select * from rate
     </select>
 
 
