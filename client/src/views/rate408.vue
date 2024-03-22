@@ -1,12 +1,25 @@
 <template>
-  <div id="main">
+  <div class="container">
+    <ul class="up">
+      <li><HistChart></HistChart></li>
+      <li><PieChart></PieChart></li>
+    </ul>
+
+    <div id="main"></div>
+
 
   </div>
+
 </template>
 
 <script>
+// import HelloWorld from "@/components/HelloWorld.vue";
+import PieChart from "@/components/PieChart.vue";
+import HistChart from "@/components/HistChart.vue";
+
 export default {
   name: "rate-408",
+  components: {HistChart, PieChart},
   data(){
     return{
       timedata:[],
@@ -115,26 +128,38 @@ export default {
         console.log(res.data);
         const NewData = res.data;
         // 直接提取time字段并添加到timedata数组中
-        const NewTimeitem = NewData.map((item) => item.time).sort();
-        console.log(NewTimeitem);
+        const NewTimeitem = NewData.map((item) => item.time);
+
         this.timedata = [...this.timedata, ...NewTimeitem];
-        console.log(this.timedata);
+
 
         //章节
-        const NewChapteritem = NewData.map((item) => item.chapter).reverse();
+        const NewChapteritem = NewData.map((item) => item.chapter);
         this.chapterdata = [...this.chapterdata,...NewChapteritem];
 
+        let chapterCounts = {};
+
+        NewChapteritem.forEach(chapter => {
+          let majorChapter = chapter.split('.')[0];
+          if (chapterCounts[majorChapter]) {
+            chapterCounts[majorChapter]++;
+          } else {
+            chapterCounts[majorChapter] = 1;
+          }
+        });
+        console.log(chapterCounts);
+
         //做题数量
-        const Newqnumitem = NewData.map((item) => item.qnum).reverse();
+        const Newqnumitem = NewData.map((item) => item.qnum);
         this.qnumdata = [...this.qnumdata,...Newqnumitem];
 
         //错题数量
-        const Newenumitem = NewData.map((item) => item.errorNum).reverse();
+        const Newenumitem = NewData.map((item) => item.errorNum);
         this.enumdata = [...this.enumdata,...Newenumitem];
-        console.log(this.enumdata)
+
 
         //正确率
-        const NewCorrectitem = NewData.map((item) => item.correctRate).reverse();
+        const NewCorrectitem = NewData.map((item) => item.correctRate);
         this.correctratedata = [...this.correctratedata,...NewCorrectitem];
 
 
@@ -157,4 +182,12 @@ export default {
   margin: auto;
   /*margin-top: 100px*/
 }
+.up {
+  display: flex;
+  justify-content: space-between;
+}
+.up li{
+  list-style-type: none;
+}
+
 </style>

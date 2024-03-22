@@ -7,12 +7,12 @@
         <result property="chapter" column="chapter" jdbcType="VARCHAR"/>
         <result property="qNum" column="q_num" jdbcType="INTEGER"/>
         <result property="errorNum" column="error_num" jdbcType="INTEGER"/>
-        <result property="correctRate" column="correct_rate" jdbcType="VARCHAR"/>
+        <result property="correctRate" column="correct_rate" jdbcType="FLOAT"/>
     </resultMap>
 
 
     <select id="queryAllRateInfo" resultMap="RateMap">
-        select * from rate
+        select * from rate order by time asc
     </select>
 
 
