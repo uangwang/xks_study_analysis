@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from 'vue-router';
 import Chart from '../views/Charts.vue';
 import Login from "../views/Login.vue";
+import Rate408 from "../views/rate408.vue";
 
 
 Vue.use(VueRouter);
@@ -12,8 +13,11 @@ const routes = [{
 },{
 	path: '/login',
 	component: Login
-
-}]
+},{
+	path: '/rate408',
+	component: Rate408
+}
+]
 
 const router = new VueRouter({
 	routes,
